@@ -238,7 +238,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 	@SuppressWarnings("unchecked")
 	protected <T> T doGetBean(final String name, @Nullable final Class<T> requiredType,
 			@Nullable final Object[] args, boolean typeCheckOnly) throws BeansException {
-
+		// 注释 3. 获取 bean 名称，如果需要，去掉引用前缀（例如修饰符），还有将别名转换成最终 beanName
 		final String beanName = transformedBeanName(name);
 		Object bean;
 

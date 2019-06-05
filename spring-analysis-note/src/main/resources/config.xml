@@ -3,8 +3,36 @@
 	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+	<bean id="book" class="domain.SimpleBook">
+		<!-- 元标签	-->
+		<meta key="test_key" value="test_value"/>
+	</bean>
 
-	<bean id="book" class="domain.SimpleBook"/>
+	<bean id="complexBook" class="domain.ComplexBook"/>
 
+	<bean id="getBookTest" class="base.label.parsing.AbstractGetBookTest">
+		<!-- 注释 2.6 loop-up 属性🌰 -->
+		<!-- 获取器注入 name 表示方法，bean 表示要注入的类-->
+		<lookup-method name="getDomain" bean="complexBook"/>
+	</bean>
+
+	<bean id="beforeMethodReplaced" class="base.label.parsing.BeforeMethodReplaced">
+		<!-- 注释 2.7 方法替换 -->
+		<replaced-method name="printDefaultName" replacer="testMethodReplaced"/>
+	</bean>
+
+	<bean id="testMethodReplaced" class="base.label.parsing.TestMethodReplaced"/>
+
+	<bean id="testConstructorArg" class="base.label.parsing.TestConstructorArg">
+		<!-- 这里展示一个构造函数的情况下，如果有两个以上，解析会更复杂 -->
+		<constructor-arg index="0" value="JingQ"/>
+		<constructor-arg index="1" value="23"/>
+	</bean>
+
+	<!-- property 解析 -->
+	<bean id="testPropertyParseElement" class="base.label.parsing.TestPropertyParseElement">
+		<property name="id" value="1"/>
+		<property name="name" value="JingQ"/>
+	</bean>
 
 </beans>

@@ -191,17 +191,22 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 	}
 
 	private void parseDefaultElement(Element ele, BeanDefinitionParserDelegate delegate) {
+		// 注释 2.1 默认标签解析
 		if (delegate.nodeNameEquals(ele, IMPORT_ELEMENT)) {
+			// 解析 import 标签
 			importBeanDefinitionResource(ele);
 		}
 		else if (delegate.nodeNameEquals(ele, ALIAS_ELEMENT)) {
+			// 解析 alias 标签
 			processAliasRegistration(ele);
 		}
 		else if (delegate.nodeNameEquals(ele, BEAN_ELEMENT)) {
+			// 解析 bean 标签的方法
 			processBeanDefinition(ele, delegate);
 		}
 		else if (delegate.nodeNameEquals(ele, NESTED_BEANS_ELEMENT)) {
 			// recurse
+			// 解析 beans 标签，其实就是递归，重新对这个 element 下的标签进行注册解析
 			doRegisterBeanDefinitions(ele);
 		}
 	}
@@ -319,7 +324,7 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 				getReaderContext().error("Failed to register bean definition with name '" +
 						bdHolder.getBeanName() + "'", ele, ex);
 			}
-			// Send registration event.
+			// Send registration event. 通知相关的监听器，表示这个 bean 已经加载完成
 			getReaderContext().fireComponentRegistered(new BeanComponentDefinition(bdHolder));
 		}
 	}

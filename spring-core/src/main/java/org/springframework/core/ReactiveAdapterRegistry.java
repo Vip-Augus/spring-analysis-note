@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
 import java.util.function.Function;
 
 import io.reactivex.BackpressureStrategy;
@@ -121,7 +122,7 @@ public class ReactiveAdapterRegistry {
 	 * their input is neither {@code null} nor {@link Optional}.
 	 */
 	public void registerReactiveType(ReactiveTypeDescriptor descriptor,
-			Function<Object, Publisher<?>> toAdapter, Function<Publisher<?>, Object> fromAdapter) {
+									 Function<Object, Publisher<?>> toAdapter, Function<Publisher<?>, Object> fromAdapter) {
 
 		if (this.reactorPresent) {
 			this.adapters.add(new ReactorAdapter(descriptor, toAdapter, fromAdapter));
@@ -221,12 +222,8 @@ public class ReactiveAdapterRegistry {
 					source -> source);
 
 			registry.registerReactiveType(
-					ReactiveTypeDescriptor.singleOptionalValue(CompletableFuture.class, () -> {
-						CompletableFuture<?> empty = new CompletableFuture<>();
-						empty.complete(null);
-						return empty;
-					}),
-					source -> Mono.fromFuture((CompletableFuture<?>) source),
+					ReactiveTypeDescriptor.singleOptionalValue(CompletionStage.class, EmptyCompletableFuture::new),
+					source -> Mono.fromCompletionStage((CompletionStage<?>) source),
 					source -> Mono.from(source).toFuture()
 			);
 		}
@@ -325,8 +322,8 @@ public class ReactiveAdapterRegistry {
 	private static class ReactorAdapter extends ReactiveAdapter {
 
 		ReactorAdapter(ReactiveTypeDescriptor descriptor,
-				Function<Object, Publisher<?>> toPublisherFunction,
-				Function<Publisher<?>, Object> fromPublisherFunction) {
+					   Function<Object, Publisher<?>> toPublisherFunction,
+					   Function<Publisher<?>, Object> fromPublisherFunction) {
 
 			super(descriptor, toPublisherFunction, fromPublisherFunction);
 		}
@@ -338,25 +335,37 @@ public class ReactiveAdapterRegistry {
 		}
 	}
 
+
+	private static class EmptyCompletableFuture<T> extends CompletableFuture<T> {
+
+		EmptyCompletableFuture() {
+			complete(null);
+		}
+	}
+
+
 	private static class CoroutinesRegistrar {
 
 		@SuppressWarnings("KotlinInternalInJava")
 		void registerAdapters(ReactiveAdapterRegistry registry) {
-			registry.registerReactiveType(
-					ReactiveTypeDescriptor.singleOptionalValue(Deferred.class, () -> CompletableDeferredKt.CompletableDeferred(null)),
-					source -> CoroutinesUtils.deferredToMono((Deferred<?>) source),
-					source -> CoroutinesUtils.monoToDeferred(Mono.from(source)));
+			//由于提示无法找到，所以暂时先注释掉
+//			registry.registerReactiveType(
+//					ReactiveTypeDescriptor.singleOptionalValue(Deferred.class,
+//							() -> CompletableDeferredKt.CompletableDeferred(null)),
+//					source -> CoroutinesUtils.deferredToMono((Deferred<?>) source),
+//					source -> CoroutinesUtils.monoToDeferred(Mono.from(source)));
 		}
 	}
+
 
 	private static class CoroutinesFlowRegistrar {
 
 		void registerAdapters(ReactiveAdapterRegistry registry) {
-			registry.registerReactiveType(
-					ReactiveTypeDescriptor.multiValue(kotlinx.coroutines.flow.Flow.class, FlowKt::emptyFlow),
-					source -> FlowAsPublisherKt.from((kotlinx.coroutines.flow.Flow<?>) source),
-					PublisherAsFlowKt::from
-			);
+//			registry.registerReactiveType(
+//					ReactiveTypeDescriptor.multiValue(kotlinx.coroutines.flow.Flow.class, FlowKt::emptyFlow),
+//					source -> FlowAsPublisherKt.from((kotlinx.coroutines.flow.Flow<?>) source),
+//					PublisherAsFlowKt::from
+//			);
 		}
 	}
 
