@@ -19,6 +19,7 @@
 	</xsd:annotation>
 
 	<xsd:element name="annotation-driven">
+		<!-- 注释 3.2 类型定义 -->
 		<xsd:complexType>
 			<xsd:annotation>
 				<xsd:documentation source="java:org.springframework.cache.annotation.AnnotationCacheOperationDefinitionSource"><![CDATA[
@@ -34,8 +35,18 @@
 	code-based alternatives to this XML element.
 				]]></xsd:documentation>
 			</xsd:annotation>
+			<!-- 属性定义 name 表示字段名，type 表示接受的类型，default 是默认值-->
 			<xsd:attribute name="cache-manager" type="xsd:string" default="cacheManager">
 				<xsd:annotation>
+					<!-- 用于检索备份缓存的CacheManager的bean名称。
+
+						 默认的CacheResolver将在后台使用这个缓存管理器初始化(如果没有设置“cacheManager”)。
+
+						 要对缓存分辨率进行更细粒度的管理，请考虑设置“cache-resolver”属性。-->
+
+					<!-- 请注意，如果您使用JSR-107作为一个额外的异常缓存解析器，那么应该创建这个属性，
+
+						 并且需要一个CacheManager来创建它，那么这个属性仍然是必需的。-->
 					<xsd:documentation source="java:org.springframework.cache.CacheManager"><![CDATA[
 	The bean name of the CacheManager that is to be used to retrieve the backing
 	caches. A default CacheResolver will be initialized behind the scenes with
@@ -47,6 +58,7 @@
 	additional exception cache resolver should be created and requires a CacheManager
 	to do so.
 					]]></xsd:documentation>
+					<!-- 接受的类型 -->
 					<xsd:appinfo>
 						<tool:annotation kind="ref">
 							<tool:expected-type type="org.springframework.cache.CacheManager"/>

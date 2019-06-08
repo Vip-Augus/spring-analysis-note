@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://vip-augus.github.io/schema/product"
+			xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			elementFormDefault="qualified">
+
+	<!-- 注释 3.4 自定义元素  -->
+	<xsd:element name="product">
+		<xsd:complexType>
+			<!-- 这个是类注册时的名字，组件中请不要占用该字段~ -->
+			<xsd:attribute name="id" type="xsd:string"/>
+			<!-- 属性定义列表，名字和类型 -->
+			<xsd:attribute name="productId" type="xsd:integer"/>
+			<xsd:attribute name="unit" type="xsd:string"/>
+			<xsd:attribute name="name" type="xsd:string"/>
+		</xsd:complexType>
+	</xsd:element>
+
+
+</xsd:schema>
