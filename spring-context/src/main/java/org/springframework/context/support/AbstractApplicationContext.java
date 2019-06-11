@@ -547,6 +547,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 				registerListeners();
 
 				// Instantiate all remaining (non-lazy-init) singletons.
+				// 注释 4.2 实例化非懒加载的单例
 				finishBeanFactoryInitialization(beanFactory);
 
 				// Last step: publish corresponding event.
@@ -1105,6 +1106,8 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	@Override
 	public Object getBean(String name) throws BeansException {
 		assertBeanFactoryActive();
+		// 注释 4.1 bean 加载入口
+		// beanFactory 实际获取的是在一开始 bean 注册时放入的 DefaultListableBeanFactory
 		return getBeanFactory().getBean(name);
 	}
 

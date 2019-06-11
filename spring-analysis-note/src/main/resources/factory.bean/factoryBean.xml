@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="carFactoryBean" class="base.factory.bean.CarFactoryBean">
+		<!--注释 4.4 还记得这个属性使用么哈哈哈-->
+		<property name="carInfo" value="超级跑车,400,20000"/>
+	</bean>
+</beans>

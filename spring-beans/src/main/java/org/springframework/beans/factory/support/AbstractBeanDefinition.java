@@ -1101,6 +1101,7 @@ public abstract class AbstractBeanDefinition extends BeanMetadataAttributeAccess
 			Set<MethodOverride> overrides = getMethodOverrides().getOverrides();
 			synchronized (overrides) {
 				for (MethodOverride mo : overrides) {
+					// 处理 override 属性
 					prepareMethodOverride(mo);
 				}
 			}
