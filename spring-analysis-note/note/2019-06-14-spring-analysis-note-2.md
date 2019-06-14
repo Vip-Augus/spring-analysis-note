@@ -141,7 +141,7 @@ protected void processBeanDefinition(Element ele, BeanDefinitionParserDelegate d
 
 先讲下 `meta` 属性的使用（汗，在没了解前，基本没使用该属性=-=）
 
-``` {.xml}
+``` xml
 <bean id="book" class="domain.SimpleBook">
     <!--    元标签 -->
     <meta key="test_key" value="test_value"/>
@@ -186,7 +186,7 @@ protected void processBeanDefinition(Element ele, BeanDefinitionParserDelegate d
 
 > config.xml
 
-``` {.xml}
+``` xml
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -225,7 +225,7 @@ protected void processBeanDefinition(Element ele, BeanDefinitionParserDelegate d
 
 解析构造函数这个属性是很常用的，但同时它的解析也很复杂，下面贴一个实例配置：
 
-``` {.xml}
+``` xml
 <bean id="testConstructorArg" class="base.label.parsing.TestConstructorArg">
     <!-- 这里展示一个构造函数的情况下，如果有两个以上，解析会更复杂 -->
     <constructor-arg index="0" value="JingQ"/>
@@ -289,7 +289,7 @@ public void parseConstructorArgElements(Element beanEle, BeanDefinition bd) {
 `ref` `value`
 属性的处理比较简单，所以大家看代码就能了解它是如何解析的，比较难的是子元素处理，例如下面的例子：
 
-``` {.xml}
+``` xml
 <constructor-arg>
     <map>
         <entry key="key" value="value" />
@@ -326,7 +326,7 @@ private AbstractBook book;
 
 通过 `qualifier` 指定注入 `bean` 的名称
 
-``` {.xml}
+``` xml
 <bean id="testBean" class="base.TestBean">
     <qualifer type="org.Springframeword.beans.factory.annotation.Quailfier" value="book1"/>
 </bean>

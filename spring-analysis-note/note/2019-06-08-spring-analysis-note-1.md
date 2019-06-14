@@ -131,7 +131,7 @@ protected String resolvePath(String path) {
 
 `demo`:（引用自参考资料第四条）
 
-``` {.xml}
+``` xml
 <!-- 测试环境配置文件 -->
 <beans profile="test">
     <context:property-placeholder location="classpath:test/*.properties, classpath:common/*.properties" />
@@ -152,7 +152,7 @@ protected String resolvePath(String path) {
 
 ① 在 `web.xml` 中设置
 
-``` {.xml}
+``` xml
 <context-param>
     <param-name>spring.profiles.active</param-name>
     <param-value>test</param-value>
