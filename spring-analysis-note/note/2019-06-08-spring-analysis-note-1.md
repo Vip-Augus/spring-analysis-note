@@ -62,7 +62,7 @@ ClassPathXmlApplicationContext
 
 构造器的代码：
 
-``` {.java}
+``` java
 public ClassPathXmlApplicationContext(
         String[] configLocations, boolean refresh, @Nullable ApplicationContext parent)
         throws BeansException {
@@ -82,7 +82,7 @@ public ClassPathXmlApplicationContext(
 
 > org.springframework.context.support.AbstractRefreshableConfigApplicationContext
 
-``` {.java}
+``` java
 public void setConfigLocations(@Nullable String... locations) {
     if (locations != null) {
         Assert.noNullElements(locations, "Config locations must not be null");
@@ -104,7 +104,7 @@ public void setConfigLocations(@Nullable String... locations) {
 `new ClassPathXmlApplicationContext("classpath:config.xml");`，就需要解析
 `classpath`，变成正确路径。
 
-``` {.java}
+``` java
 protected String resolvePath(String path) {
     return getEnvironment().resolveRequiredPlaceholders(path);
 }
@@ -161,7 +161,7 @@ protected String resolvePath(String path) {
 
 ② 在代码启动时设置
 
-``` {.java}
+``` java
 context.getEnvironment().setActiveProfiles("test");
 ```
 
@@ -183,7 +183,7 @@ context.getEnvironment().setActiveProfiles("test");
 最终在 `StandardEnvironment` 使用 `CopyOnWriteArrayList`
 数组进行属性存储
 
-``` {.java}
+``` java
 protected void customizePropertySources(MutablePropertySources propertySources) {
     propertySources.addLast(new MapPropertySource(SYSTEM_PROPERTIES_PROPERTY_SOURCE_NAME, getSystemProperties()));
     propertySources.addLast(new SystemEnvironmentPropertySource(SYSTEM_ENVIRONMENT_PROPERTY_SOURCE_NAME, getSystemEnvironment()));
@@ -196,7 +196,7 @@ protected void customizePropertySources(MutablePropertySources propertySources) 
 
 到时这些参数就能在启动的应用中，通过上下文 `context` 进行获取
 
-``` {.java}
+``` java
 ((MutablePropertySources)((StandardEnvironment)context.environment).propertySources).propertySourceList
 ```
 
@@ -210,7 +210,7 @@ Bean 的解析和注册
 
 > AbstractApplicationContext.refresh()
 
-``` {.java}
+``` java
 public void refresh() throws BeansException, IllegalStateException {
     synchronized (this.startupShutdownMonitor) {
         // Prepare this context for refreshing. （为更新准备上下文，设定一些标志）
@@ -270,7 +270,7 @@ public void refresh() throws BeansException, IllegalStateException {
 
 > org.springframework.core.env.AbstractPropertyResolver\#validateRequiredProperties
 
-``` {.java}
+``` java
 public void validateRequiredProperties() {
     MissingRequiredPropertiesException ex = new MissingRequiredPropertiesException();
     for (String key : this.requiredProperties) {
@@ -298,7 +298,7 @@ public void validateRequiredProperties() {
 
 > org.springframework.context.support.AbstractRefreshableApplicationContext\#refreshBeanFactory
 
-``` {.java}
+``` java
 protected final void refreshBeanFactory() throws BeansException {
     // 在更新时，如果发现已经存在，将会把之前的 bean 清理掉，并且关闭老 bean 容器
     if (hasBeanFactory()) {
@@ -332,7 +332,7 @@ protected final void refreshBeanFactory() throws BeansException {
 
 > org.springframework.context.support.AbstractRefreshableApplicationContext\#customizeBeanFactory
 
-``` {.java}
+``` java
 protected void customizeBeanFactory(DefaultListableBeanFactory beanFactory) {
     if (this.allowBeanDefinitionOverriding != null) {
         // 默认是 false，不允许覆盖
@@ -370,7 +370,7 @@ protected void customizeBeanFactory(DefaultListableBeanFactory beanFactory) {
 
 **核心方法是这两行**
 
-``` {.java}
+``` java
 public int loadBeanDefinitions(String location, @Nullable Set<Resource> actualResources) throws BeanDefinitionStoreException {
     // 获取资源文件（资源加载器从路径识别资源文件）
     Resource[] resources = ((ResourcePatternResolver) resourceLoader).getResources(location)
@@ -391,7 +391,7 @@ public int loadBeanDefinitions(String location, @Nullable Set<Resource> actualRe
 
 > org.springframework.beans.factory.xml.XmlBeanDefinitionReader\#loadBeanDefinitions(org.springframework.core.io.support.EncodedResource)
 
-``` {.java}
+``` java
 public int loadBeanDefinitions(EncodedResource encodedResource) throws BeanDefinitionStoreException {
     // 注释 1.7 从资源文件中获取输入流
     InputStream inputStream = encodedResource.getResource().getInputStream();
@@ -413,7 +413,7 @@ public int loadBeanDefinitions(EncodedResource encodedResource) throws BeanDefin
 
 > org.springframework.beans.factory.xml.DefaultBeanDefinitionDocumentReader\#parseDefaultElement
 
-``` {.java}
+``` java
 private void parseDefaultElement(Element ele, BeanDefinitionParserDelegate delegate) {
     if (delegate.nodeNameEquals(ele, IMPORT_ELEMENT)) {
         importBeanDefinitionResource(ele);
@@ -440,7 +440,7 @@ private void parseDefaultElement(Element ele, BeanDefinitionParserDelegate deleg
 > org.springframework.beans.factory.xml.BeanDefinitionParserDelegate\#parseBeanDefinitionElement(org.w3c.dom.Element,
 > org.springframework.beans.factory.config.BeanDefinition)
 
-``` {.java}
+``` java
 public BeanDefinitionHolder parseBeanDefinitionElement(Element ele, @Nullable BeanDefinition containingBean) {
     // 获取 ID 属性
     String id = ele.getAttribute(ID_ATTRIBUTE);
@@ -508,7 +508,7 @@ public BeanDefinitionHolder parseBeanDefinitionElement(Element ele, @Nullable Be
 > java.lang.String,
 > org.springframework.beans.factory.config.BeanDefinition)
 
-``` {.java}
+``` java
 public AbstractBeanDefinition parseBeanDefinitionElement(
         Element ele, String beanName, @Nullable BeanDefinition containingBean) {
     AbstractBeanDefinition bd = createBeanDefinition(className, parent);
@@ -532,7 +532,7 @@ public AbstractBeanDefinition parseBeanDefinitionElement(
 > BeanDefinitionReaderUtils.createBeanDefinition(parentName, className,
 > this.readerContext.getBeanClassLoader())
 
-``` {.java}
+``` java
 public static AbstractBeanDefinition createBeanDefinition(
             @Nullable String parentName, @Nullable String className, @Nullable ClassLoader classLoader) throws ClassNotFoundException {
     GenericBeanDefinition bd = new GenericBeanDefinition();
@@ -559,7 +559,7 @@ public static AbstractBeanDefinition createBeanDefinition(
 > org.springframework.beans.factory.config.BeanDefinitionHolder,
 > org.springframework.beans.factory.config.BeanDefinition)
 
-``` {.java}
+``` java
 public BeanDefinitionHolder decorateBeanDefinitionIfRequired(
             Element ele, BeanDefinitionHolder definitionHolder, @Nullable BeanDefinition containingBd) {
     // 方法中的第三个参数是父类 bean

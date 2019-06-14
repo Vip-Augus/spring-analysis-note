@@ -42,7 +42,7 @@
 
 先看源码是如何区分这两者：
 
-``` {.java}
+``` java
 protected void parseBeanDefinitions(Element root, BeanDefinitionParserDelegate delegate) {
     if (delegate.isDefaultNamespace(root)) {
         // 注释 1.12 遍历 doc 中的节点列表
@@ -81,7 +81,7 @@ Bean 标签解析入口
 
 定位到上面第三个方法 `processBeanDefinition(ele, delegate)`：
 
-``` {.java}
+``` java
 protected void processBeanDefinition(Element ele, BeanDefinitionParserDelegate delegate) {
         // 注释 1.15 解析 bean 名称的元素
         BeanDefinitionHolder bdHolder = delegate.parseBeanDefinitionElement(ele);
@@ -239,7 +239,7 @@ protected void processBeanDefinition(Element ele, BeanDefinitionParserDelegate d
 
 具体解析在这个方法中：
 
-``` {.java}
+``` java
 /**
  * 注释 2.8 解析 构造函数 子元素
  * Parse constructor-arg sub-elements of the given bean element.
@@ -315,7 +315,7 @@ public void parseConstructorArgElements(Element beanEle, BeanDefinition bd) {
 例如我们定义了一个抽象类 `AbstractBook`，有两个具体实现类 `Book1` 和
 `Book2`，如果使用代码：
 
-``` {.java}
+``` java
 @Autowired
 private AbstractBook book;
 ```
@@ -334,7 +334,7 @@ private AbstractBook book;
 
 ② 使用 `@Qualifier("beanNeame")`
 
-``` {.java}
+``` java
 @Qualifier("book1")
 private AbstractBook book;
 ```
