@@ -1,3 +1,5 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 -   [ClassPathXmlApplicationContext](#classpathxmlapplicationcontext)
     -   [设置配置文件路径](#设置配置文件路径)
         -   [Profile](#profile)
@@ -31,9 +33,9 @@
 **展示的代码摘取了一些核心方法，去掉一些默认设置和日志输出，还有大多数错误异常也去掉了，小伙伴想看详细代码，注释和
 demo，可以下载我上传的笔记项目📒**
 
-[码云 Gitee 地址](https://gitee.com/vip-augus/spring-analysis-note.git)
+[spring-analysis-note 码云 Gitee 地址](https://gitee.com/vip-augus/spring-analysis-note.git)
 
-[Github 地址](https://github.com/Vip-Augus/spring-analysis-note)
+[spring-analysis-note Github 地址](https://github.com/Vip-Augus/spring-analysis-note)
 
 通过阅读源码的过程，了解设计者的设计思路和从中学习，对 `spring`
 有个基础的了解。

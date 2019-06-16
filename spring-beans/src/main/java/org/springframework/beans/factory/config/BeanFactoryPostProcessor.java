@@ -25,6 +25,8 @@ import org.springframework.beans.BeansException;
  * <p>Application contexts can auto-detect BeanFactoryPostProcessor beans in
  * their bean definitions and apply them before any other beans get created.
  *
+ * 应用程序上下文可以自动检测bean定义中的BeanFactoryPostProcessor bean，并在创建任何其他bean之前应用它们。
+ *
  * <p>Useful for custom config files targeted at system administrators that
  * override bean properties configured in the application context.
  *
@@ -36,6 +38,11 @@ import org.springframework.beans.BeansException;
  * instantiation, violating the container and causing unintended side-effects.
  * If bean instance interaction is required, consider implementing
  * {@link BeanPostProcessor} instead.
+ *
+ * BeanFactoryPostProcessor 可以与 bean 定义交互并修改 bean 定义，
+ * 但绝不可以修改 bean 实例。这样做可能会导致过早的 bean 实例化，
+ * 破坏容器并导致意想不到的副作用。如果需要bean实例交互，则
+ * 考虑实现 BeanPostProcessor。
  *
  * @author Juergen Hoeller
  * @since 06.07.2003

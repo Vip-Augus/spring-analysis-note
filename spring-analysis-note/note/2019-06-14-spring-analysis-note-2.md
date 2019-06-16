@@ -23,9 +23,9 @@
 
 再次说下，下载项目看完整注释，跟着源码一起分析\~
 
-[码云 Gitee 地址](https://gitee.com/vip-augus/spring-analysis-note.git)
+[spring-analysis-note 码云 Gitee 地址](https://gitee.com/vip-augus/spring-analysis-note.git)
 
-[Github 地址](https://github.com/Vip-Augus/spring-analysis-note)
+[spring-analysis-note Github 地址](https://github.com/Vip-Augus/spring-analysis-note)
 
 ------------------------------------------------------------------------
 

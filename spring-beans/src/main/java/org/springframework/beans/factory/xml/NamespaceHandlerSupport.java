@@ -82,6 +82,7 @@ public abstract class NamespaceHandlerSupport implements NamespaceHandler {
 	 */
 	@Nullable
 	private BeanDefinitionParser findParserForElement(Element element, ParserContext parserContext) {
+		// 用 <myName:product> 为例子，localName 就是 product，是标签后面跟着的元素，根据这个元素，找到我们自定义的解析器
 		String localName = parserContext.getDelegate().getLocalName(element);
 		BeanDefinitionParser parser = this.parsers.get(localName);
 		if (parser == null) {
