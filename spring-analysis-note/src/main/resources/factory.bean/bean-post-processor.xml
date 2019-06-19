@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<!-- beanPostProcessor -->
+<!--	<bean id="carPostProcessor" class="context.bean.CarBeanPostProcessor"/>-->
+
+	<!--用以下两个 bean 进行测试打印时间和顺序-->
+	<bean id="car" class="base.factory.bean.Car">
+		<property name="price" value="10000"/>
+		<property name="brand" value="奔驰"/>
+	</bean>
+
+	<bean id="book" class="domain.ComplexBook"/>
+
+	<bean id="testListener" class="context.event.CarEventListener"/>
+
+	<bean id="anotherListener" class="context.event.AnotherEventListener"/>
+
+</beans>
