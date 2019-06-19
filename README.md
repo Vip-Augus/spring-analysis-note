@@ -35,7 +35,7 @@ git clone https://github.com/Vip-Augus/spring-analysis-note
 
 - [Spring 源码学习(三)自定义标签](./spring-analysis-note/note/2019-06-16-spring-analysis-note-3.md)
 
-- [Spring 源码学习(四) bean 的加载](./spring-analysis-note/note/2019-06-16-spring-analysis-note-3.md)
+- [Spring 源码学习(四) bean 的加载](./spring-analysis-note/note/2019-06-19-spring-analysis-note-4.md)
 
 
 ## 关于我
