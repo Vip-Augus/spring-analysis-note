@@ -163,25 +163,27 @@ task docsZip(type: Zip, dependsOn: ['api', 'asciidoctor', 'dokka']) {
 	}
 }
 
+// https://stackoverflow.com/questions/34916981/build-spring-framework-source-code-encounter-an-error
+// javaDoc 报错，跟 window 风格的路径配置有关。。。如果这个也有问题 ，请切回之前的版本
 task schemaZip(type: Zip) {
 	group = "Distribution"
 	baseName = "spring-framework"
 	classifier = "schema"
 	description = "Builds -${classifier} archive containing all " +
-			"XSDs for deployment at https://springframework.org/schema."
+			"XSDs for deployment at http://springframework.org/schema."
 	duplicatesStrategy 'exclude'
 	moduleProjects.each { subproject ->
 		def Properties schemas = new Properties();
 
 		subproject.sourceSets.main.resources.find {
-			it.path.endsWith("META-INF/spring.schemas")
+			it.path.endsWith("META-INF\\spring.schemas")
 		}?.withInputStream { schemas.load(it) }
 
 		for (def key : schemas.keySet()) {
 			def shortName = key.replaceAll(/http.*schema.(.*).spring-.*/, '$1')
 			assert shortName != key
 			File xsdFile = subproject.sourceSets.main.resources.find {
-				it.path.endsWith(schemas.get(key))
+				it.path.endsWith(schemas.get(key).replaceAll('\\/','\\\\'))
 			}
 			assert xsdFile != null
 			into (shortName) {

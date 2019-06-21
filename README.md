@@ -25,6 +25,10 @@ git clone https://github.com/Vip-Augus/spring-analysis-note
 
 ![](spring-analysis-note/note/pics/spring_analysis_note.png)
 
+## 跟踪代码 Debug
+
+![](spring-analysis-note/note/pics/spring5/circle_reference_debug.gif)
+
 ## 传送门：
 
 - [Spring 源码学习-环境准备](./spring-analysis-note/note/2019-06-08-spring-analysis-note-env-prepared.md)
@@ -36,6 +40,8 @@ git clone https://github.com/Vip-Augus/spring-analysis-note
 - [Spring 源码学习(三)自定义标签](./spring-analysis-note/note/2019-06-16-spring-analysis-note-3.md)
 
 - [Spring 源码学习(四) bean 的加载](./spring-analysis-note/note/2019-06-19-spring-analysis-note-4.md)
+
+- [Spring 源码学习(五)循环依赖](./spring-analysis-note/note/2019-06-21-spring-analysis-note-5.md)
 
 
 ## 关于我
