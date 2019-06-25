@@ -189,6 +189,11 @@ public abstract class AbstractAspectJAdvisorFactory implements AspectJAdvisorFac
 
 		private final String argumentNames;
 
+		/**
+		 * 注释 8.6 根据切点信息生成增强
+		 *
+		 * @param annotation	注解
+		 */
 		public AspectJAnnotation(A annotation) {
 			this.annotation = annotation;
 			this.annotationType = determineAnnotationType(annotation);

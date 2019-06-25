@@ -43,6 +43,8 @@ git clone https://github.com/Vip-Augus/spring-analysis-note
 
 - [Spring 源码学习(五)循环依赖](./spring-analysis-note/note/2019-06-21-spring-analysis-note-5.md)
 
+- [Spring 源码学习(六)扩展功能 上篇-BeanFactoryPostProcessor](./spring-analysis-note/note/2019-06-25-spring-analysis-note-6.md)
+
 
 ## 关于我
 

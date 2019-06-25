@@ -21,6 +21,11 @@ dependencies {
     compile(project(":spring-jcl"))
     optional(project(":spring-instrument"))
     optional(project(":spring-context"))  // for JCA, @EnableTransactionManagement
+    optional(project(":spring-tx"))  // for JPA, @Transactional support
+    optional("org.aspectj:aspectjweaver:${aspectjVersion}")
+    optional(project(":spring-jdbc"))  // for Quartz support
+    optional(project(":spring-tx"))  // for Quartz support
+    compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.6'
     
     testCompile group: 'junit', name: 'junit', version: '4.11'
     testCompile group: 'junit', name: 'junit', version: '4.12'
