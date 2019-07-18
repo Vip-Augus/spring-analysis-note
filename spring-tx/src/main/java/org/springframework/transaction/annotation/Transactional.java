@@ -29,10 +29,18 @@ import org.springframework.transaction.TransactionDefinition;
 /**
  * Describes a transaction attribute on an individual method or on a class.
  *
+ * 可以在单个方法或类上设置事务属性
+ *
  * <p>At the class level, this annotation applies as a default to all methods of
  * the declaring class and its subclasses. Note that it does not apply to ancestor
  * classes up the class hierarchy; methods need to be locally redeclared in order
  * to participate in a subclass-level annotation.
+ *
+ * 在类级别，此注解作为默认应用于声明类及其子类的所有方法。
+ *
+ * 请注意，它不适用于类层次结构中的祖先类;
+ *
+ * 方法需要在本地重新声明，以便参与子类级别的注解
  *
  * <p>This annotation type is generally directly comparable to Spring's
  * {@link org.springframework.transaction.interceptor.RuleBasedTransactionAttribute}
@@ -83,6 +91,9 @@ public @interface Transactional {
 
 	/**
 	 * The transaction propagation type.
+	 *
+	 * 事务传播类型，默认是 Required
+	 *
 	 * <p>Defaults to {@link Propagation#REQUIRED}.
 	 * @see org.springframework.transaction.interceptor.TransactionAttribute#getPropagationBehavior()
 	 */
@@ -90,6 +101,9 @@ public @interface Transactional {
 
 	/**
 	 * The transaction isolation level.
+	 *
+	 * 事务隔离级别
+	 *
 	 * <p>Defaults to {@link Isolation#DEFAULT}.
 	 * <p>Exclusively designed for use with {@link Propagation#REQUIRED} or
 	 * {@link Propagation#REQUIRES_NEW} since it only applies to newly started
@@ -104,6 +118,9 @@ public @interface Transactional {
 
 	/**
 	 * The timeout for this transaction (in seconds).
+	 *
+	 * 事务超时时间，以秒为单位
+	 *
 	 * <p>Defaults to the default timeout of the underlying transaction system.
 	 * <p>Exclusively designed for use with {@link Propagation#REQUIRED} or
 	 * {@link Propagation#REQUIRES_NEW} since it only applies to newly started
@@ -115,6 +132,9 @@ public @interface Transactional {
 	/**
 	 * A boolean flag that can be set to {@code true} if the transaction is
 	 * effectively read-only, allowing for corresponding optimizations at runtime.
+	 *
+	 * 设置读写或只读事务，默认是只读
+	 *
 	 * <p>Defaults to {@code false}.
 	 * <p>This just serves as a hint for the actual transaction subsystem;
 	 * it will <i>not necessarily</i> cause failure of write access attempts.
@@ -130,6 +150,9 @@ public @interface Transactional {
 	 * Defines zero (0) or more exception {@link Class classes}, which must be
 	 * subclasses of {@link Throwable}, indicating which exception types must cause
 	 * a transaction rollback.
+	 *
+	 * 定义零（0）或更多异常，它必须是 Throwable 的子类，指示哪些异常类型必须导致事务回滚
+	 *
 	 * <p>By default, a transaction will be rolling back on {@link RuntimeException}
 	 * and {@link Error} but not on checked exceptions (business exceptions). See
 	 * {@link org.springframework.transaction.interceptor.DefaultTransactionAttribute#rollbackOn(Throwable)}
@@ -146,6 +169,9 @@ public @interface Transactional {
 	 * Defines zero (0) or more exception names (for exceptions which must be a
 	 * subclass of {@link Throwable}), indicating which exception types must cause
 	 * a transaction rollback.
+	 *
+	 * 定义零（0）或更多异常名称（对于必须是 Throwable 的子类的异常），指示哪些异常类型必须导致事务回滚
+	 *
 	 * <p>This can be a substring of a fully qualified class name, with no wildcard
 	 * support at present. For example, a value of {@code "ServletException"} would
 	 * match {@code javax.servlet.ServletException} and its subclasses.

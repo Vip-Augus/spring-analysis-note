@@ -79,6 +79,13 @@
 
 	See org.springframework.transaction.annotation.EnableTransactionManagement Javadoc
 	for information on code-based alternatives to this XML element.
+
+	注释 9.1 tx.xsd 事务自定义标签
+	指示事务配置由bean类上的Java 5注释定义，
+	并且将自动为相关的带注释的bean创建代理。
+	支持的默认注释是 Spring 的 @Transactional 和 EJB3 的 @TransactionAttribute（如果可用）。
+
+	传播设置，隔离级别，回滚规则等事务语义都在注释元数据中定义。
 				]]></xsd:documentation>
 			</xsd:annotation>
 			<xsd:attribute name="transaction-manager" type="xsd:string" default="transactionManager">

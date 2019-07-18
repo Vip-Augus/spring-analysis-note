@@ -41,6 +41,7 @@ public class BeanFactoryTransactionAttributeSourceAdvisor extends AbstractBeanFa
 		@Override
 		@Nullable
 		protected TransactionAttributeSource getTransactionAttributeSource() {
+			// 实现父类的方法，在子类中进行了扩展，返回之前在标签注册时的AnnotationTransactionAttributeSource
 			return transactionAttributeSource;
 		}
 	};

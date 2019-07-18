@@ -103,6 +103,7 @@ public abstract class AopNamespaceUtils {
 
 	private static void registerComponentIfNecessary(@Nullable BeanDefinition beanDefinition, ParserContext parserContext) {
 		if (beanDefinition != null) {
+			// 注册 的beanName 是 org.springframework.aop.config.internalAutoProxyCreator
 			parserContext.registerComponent(
 					new BeanComponentDefinition(beanDefinition, AopConfigUtils.AUTO_PROXY_CREATOR_BEAN_NAME));
 		}

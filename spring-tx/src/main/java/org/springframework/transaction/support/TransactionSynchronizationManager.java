@@ -207,6 +207,7 @@ public abstract class TransactionSynchronizationManager {
 	 */
 	public static Object unbindResource(Object key) throws IllegalStateException {
 		Object actualKey = TransactionSynchronizationUtils.unwrapResourceIfNecessary(key);
+		// 注释 9.7 事务挂起的操作
 		Object value = doUnbindResource(actualKey);
 		if (value == null) {
 			throw new IllegalStateException(

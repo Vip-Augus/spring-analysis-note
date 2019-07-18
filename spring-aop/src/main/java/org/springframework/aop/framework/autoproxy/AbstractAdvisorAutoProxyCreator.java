@@ -72,7 +72,7 @@ public abstract class AbstractAdvisorAutoProxyCreator extends AbstractAutoProxyC
 	@Nullable
 	protected Object[] getAdvicesAndAdvisorsForBean(
 			Class<?> beanClass, String beanName, @Nullable TargetSource targetSource) {
-		// 寻找符合的切面
+		// 寻找符合的 Advisor （包含 Advice 切面逻辑和 Pointcut 切点信息）
 		List<Advisor> advisors = findEligibleAdvisors(beanClass, beanName);
 		if (advisors.isEmpty()) {
 			return DO_NOT_PROXY;
@@ -94,7 +94,7 @@ public abstract class AbstractAdvisorAutoProxyCreator extends AbstractAutoProxyC
 		// 从 beanFactory 中获取声明为 AspectJ 注解的类，对并这些类进行增强器的提取
 		// 委派给子类实现 org.springframework.aop.aspectj.autoproxy.AspectJAwareAdvisorAutoProxyCreator.extendAdvisors
 		List<Advisor> candidateAdvisors = findCandidateAdvisors();
-		// 寻找匹配的增强器
+		// 寻找匹配的增强器，前一步查询出来全部的增强器，这一步进行匹配，找出属于该 bean 的
 		List<Advisor> eligibleAdvisors = findAdvisorsThatCanApply(candidateAdvisors, beanClass, beanName);
 		extendAdvisors(eligibleAdvisors);
 		if (!eligibleAdvisors.isEmpty()) {
