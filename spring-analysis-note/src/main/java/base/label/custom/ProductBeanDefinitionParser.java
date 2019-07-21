@@ -12,7 +12,7 @@ import org.w3c.dom.Element;
 public class ProductBeanDefinitionParser extends AbstractSingleBeanDefinitionParser {
 
 	@Override
-	protected Class getBeanClass(Element element) {
+	protected Class<Product> getBeanClass(Element element) {
 		// 返回对应的类型
 		return Product.class;
 	}

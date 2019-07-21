@@ -8,6 +8,13 @@ public class ComplexBook extends BaseBook {
 
 	private String tag;
 
+	public ComplexBook() {}
+
+	public ComplexBook(String name, String tag) {
+		setName(name);
+		this.tag = tag;
+	}
+
 	@Override
 	public String getName() {
 		return super.getName() == null ? "Complex book name" : super.getName();

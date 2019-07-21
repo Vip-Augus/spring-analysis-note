@@ -389,11 +389,14 @@ public abstract class AbstractHandlerMapping extends WebApplicationObjectSupport
 	@Override
 	@Nullable
 	public final HandlerExecutionChain getHandler(HttpServletRequest request) throws Exception {
+		// 根据 Request 获取对应的 handler
 		Object handler = getHandlerInternal(request);
 		if (handler == null) {
+			// 如果没有对应的 handler，则使用默认的 handler
 			handler = getDefaultHandler();
 		}
 		if (handler == null) {
+			// 如果连默认的也没有设置，那么返回 null
 			return null;
 		}
 		// Bean name or resolved handler?
@@ -401,7 +404,7 @@ public abstract class AbstractHandlerMapping extends WebApplicationObjectSupport
 			String handlerName = (String) handler;
 			handler = obtainApplicationContext().getBean(handlerName);
 		}
-
+		// 将配置中的对应拦截器加入到执行链中，以保证这些拦截器可以有效地作用于目标对象
 		HandlerExecutionChain executionChain = getHandlerExecutionChain(handler, request);
 
 		if (logger.isTraceEnabled()) {
@@ -463,7 +466,7 @@ public abstract class AbstractHandlerMapping extends WebApplicationObjectSupport
 	protected HandlerExecutionChain getHandlerExecutionChain(Object handler, HttpServletRequest request) {
 		HandlerExecutionChain chain = (handler instanceof HandlerExecutionChain ?
 				(HandlerExecutionChain) handler : new HandlerExecutionChain(handler));
-
+		// 截取用于匹配的 url 路径
 		String lookupPath = this.urlPathHelper.getLookupPathForRequest(request, LOOKUP_PATH);
 		for (HandlerInterceptor interceptor : this.adaptedInterceptors) {
 			if (interceptor instanceof MappedInterceptor) {

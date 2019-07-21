@@ -131,7 +131,9 @@ public class ContextLoader {
 	 */
 	private static final String DEFAULT_STRATEGIES_PATH = "ContextLoader.properties";
 
-
+	/**
+	 * 默认策略
+	 */
 	private static final Properties defaultStrategies;
 
 	static {
@@ -139,6 +141,8 @@ public class ContextLoader {
 		// This is currently strictly internal and not meant to be customized
 		// by application developers.
 		try {
+			// 从 ContextLoader.properties 文件中加载默认策略
+			// 在这个目录下：org/springframework/web/context/ContextLoader.properties
 			ClassPathResource resource = new ClassPathResource(DEFAULT_STRATEGIES_PATH, ContextLoader.class);
 			defaultStrategies = PropertiesLoaderUtils.loadProperties(resource);
 		}
@@ -251,6 +255,10 @@ public class ContextLoader {
 	 * using the application context provided at construction time, or creating a new one
 	 * according to the "{@link #CONTEXT_CLASS_PARAM contextClass}" and
 	 * "{@link #CONFIG_LOCATION_PARAM contextConfigLocation}" context-params.
+	 *
+	 * 使用构造时提供的应用程序上下文初始化 Spring 的给定 servlet 上下文的 Web 应用程序上下文，
+	 * 或者根据“ contextClass ”和“{ contextConfigLocation }”创建新的 context-params。
+	 *
 	 * @param servletContext current servlet context
 	 * @return the new WebApplicationContext
 	 * @see #ContextLoader(WebApplicationContext)
@@ -258,7 +266,9 @@ public class ContextLoader {
 	 * @see #CONFIG_LOCATION_PARAM
 	 */
 	public WebApplicationContext initWebApplicationContext(ServletContext servletContext) {
+		// demo 中用到的根容器是 Spring 容器 WebApplicationContext.class.getName() + ".ROOT"
 		if (servletContext.getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE) != null) {
+			// web.xml 中存在多次 ContextLoader 定义
 			throw new IllegalStateException(
 					"Cannot initialize context because there is already a root application context present - " +
 					"check whether you have multiple ContextLoader* definitions in your web.xml!");
@@ -274,7 +284,9 @@ public class ContextLoader {
 		try {
 			// Store context in local instance variable, to guarantee that
 			// it is available on ServletContext shutdown.
+			// 将上下文存储在本地实例变量中，以保证在 ServletContext 关闭时可用。
 			if (this.context == null) {
+				// 初始化 context
 				this.context = createWebApplicationContext(servletContext);
 			}
 			if (this.context instanceof ConfigurableWebApplicationContext) {
@@ -291,6 +303,7 @@ public class ContextLoader {
 					configureAndRefreshWebApplicationContext(cwac, servletContext);
 				}
 			}
+			// 记录在 ServletContext 中
 			servletContext.setAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE, this.context);
 
 			ClassLoader ccl = Thread.currentThread().getContextClassLoader();
@@ -302,6 +315,7 @@ public class ContextLoader {
 			}
 
 			if (logger.isInfoEnabled()) {
+				// 计数器，计算初始化耗时时间
 				long elapsedTime = System.currentTimeMillis() - startTime;
 				logger.info("Root WebApplicationContext initialized in " + elapsedTime + " ms");
 			}
@@ -328,6 +342,7 @@ public class ContextLoader {
 	 * @see ConfigurableWebApplicationContext
 	 */
 	protected WebApplicationContext createWebApplicationContext(ServletContext sc) {
+		// 注释 10.2 创建 webApplication 上下文
 		Class<?> contextClass = determineContextClass(sc);
 		if (!ConfigurableWebApplicationContext.class.isAssignableFrom(contextClass)) {
 			throw new ApplicationContextException("Custom context class [" + contextClass.getName() +
@@ -348,6 +363,7 @@ public class ContextLoader {
 		String contextClassName = servletContext.getInitParameter(CONTEXT_CLASS_PARAM);
 		if (contextClassName != null) {
 			try {
+				// 通过反射的形式创建实例
 				return ClassUtils.forName(contextClassName, ClassUtils.getDefaultClassLoader());
 			}
 			catch (ClassNotFoundException ex) {
@@ -356,6 +372,7 @@ public class ContextLoader {
 			}
 		}
 		else {
+			// defaultStrategies 是个静态变量，在静态代码块中初始化
 			contextClassName = defaultStrategies.getProperty(WebApplicationContext.class.getName());
 			try {
 				return ClassUtils.forName(contextClassName, ContextLoader.class.getClassLoader());

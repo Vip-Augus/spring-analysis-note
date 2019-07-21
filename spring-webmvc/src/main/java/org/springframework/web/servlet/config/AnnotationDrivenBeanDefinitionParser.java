@@ -92,7 +92,7 @@ import org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolv
  * <p>This class registers the following {@link HandlerMapping HandlerMappings}:</p>
  * <ul>
  * <li>{@link RequestMappingHandlerMapping}
- * ordered at 0 for mapping requests to annotated controller methods.
+ * ordered at 0 for mapping requests to annotated controller methods. 优先级最高，放在第 0 位
  * <li>{@link BeanNameUrlHandlerMapping}
  * ordered at 2 to map URL paths to controller bean names.
  * </ul>
@@ -312,6 +312,7 @@ class AnnotationDrivenBeanDefinitionParser implements BeanDefinitionParser {
 		defaultExceptionResolver.getPropertyValues().add("order", 2);
 		String defaultExResolverName = readerContext.registerWithGeneratedName(defaultExceptionResolver);
 
+		// 注册 RequestMappingHandlerMapping
 		context.registerComponent(new BeanComponentDefinition(handlerMappingDef, HANDLER_MAPPING_BEAN_NAME));
 		context.registerComponent(new BeanComponentDefinition(handlerAdapterDef, HANDLER_ADAPTER_BEAN_NAME));
 		context.registerComponent(new BeanComponentDefinition(uriContributorDef, uriContributorName));
@@ -321,6 +322,7 @@ class AnnotationDrivenBeanDefinitionParser implements BeanDefinitionParser {
 		context.registerComponent(new BeanComponentDefinition(defaultExceptionResolver, defaultExResolverName));
 
 		// Ensure BeanNameUrlHandlerMapping (SPR-8289) and default HandlerAdapters are not "turned off"
+		// 注册 BeanNameUrlHandlerMapping
 		MvcNamespaceUtils.registerDefaultComponents(context, source);
 
 		context.popAndRegisterContainingComponent();

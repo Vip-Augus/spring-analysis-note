@@ -31,6 +31,7 @@ public class MvcNamespaceHandler extends NamespaceHandlerSupport {
 
 	@Override
 	public void init() {
+		// MVC 标签解析需要注册的解析器
 		registerBeanDefinitionParser("annotation-driven", new AnnotationDrivenBeanDefinitionParser());
 		registerBeanDefinitionParser("default-servlet-handler", new DefaultServletHandlerBeanDefinitionParser());
 		registerBeanDefinitionParser("interceptors", new InterceptorsBeanDefinitionParser());

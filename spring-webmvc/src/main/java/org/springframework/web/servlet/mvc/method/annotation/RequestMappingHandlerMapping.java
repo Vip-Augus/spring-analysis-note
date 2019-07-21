@@ -165,7 +165,7 @@ public class RequestMappingHandlerMapping extends RequestMappingInfoHandlerMappi
 		this.config.setTrailingSlashMatch(this.useTrailingSlashMatch);
 		this.config.setRegisteredSuffixPatternMatch(this.useRegisteredSuffixPatternMatch);
 		this.config.setContentNegotiationManager(getContentNegotiationManager());
-
+		// RequestMappingHandlerMapping 注册到 spring 时，会调用这个方法
 		super.afterPropertiesSet();
 	}
 

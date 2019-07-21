@@ -28,6 +28,12 @@ import javax.servlet.ServletContextListener;
  * constructor, allowing for programmatic configuration in Servlet 3.0+ environments.
  * See {@link org.springframework.web.WebApplicationInitializer} for usage examples.
  *
+ * 注释 10.1
+ *
+ * 这个类实现了 Tomcat 包下的 ServletContextListener。开发者能够在客户端启动时，往 ServletContext 中添加任意的对象
+ *
+ * ServletContext 对象在全局范围内有效，类似于全局变量
+ *
  * @author Juergen Hoeller
  * @author Chris Beams
  * @since 17.02.2003
@@ -97,6 +103,7 @@ public class ContextLoaderListener extends ContextLoader implements ServletConte
 
 	/**
 	 * Initialize the root web application context.
+	 * 注释 10.1 初始化 web 应用上下文
 	 */
 	@Override
 	public void contextInitialized(ServletContextEvent event) {

@@ -182,6 +182,7 @@ public class InvocableHandlerMethod extends HandlerMethod {
 
 	/**
 	 * Invoke the handler method with the given argument values.
+	 * 执行处理器方法
 	 */
 	@Nullable
 	protected Object doInvoke(Object... args) throws Exception {
