@@ -8,6 +8,8 @@ import org.springframework.context.ApplicationEvent;
  */
 public class CarEvent extends ApplicationEvent {
 
+	private static final long serialVersionUID = -8513182514355844870L;
+
 	/**
 	 * 自定义一个消息
 	 */
